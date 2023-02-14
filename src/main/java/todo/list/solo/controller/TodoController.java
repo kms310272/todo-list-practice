@@ -10,6 +10,7 @@ import todo.list.solo.entity.Todo;
 import todo.list.solo.mapper.TodoMapper;
 import todo.list.solo.service.TodoService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -29,10 +30,12 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity createTodoList(@Valid @RequestBody TodoPostDto todoPostDto) {
+    public ResponseEntity createTodoList(@Valid @RequestBody TodoPostDto todoPostDto,
+                                         HttpServletRequest request) {
 
         Todo todo = mapper.todoPostDtoToTodos(todoPostDto);
         Todo response = todoService.createTodoList(todo);
+        response.setUri(request.getRequestURL().toString());
 
         return new ResponseEntity<>(mapper.todoToTodoResponseDto(response), HttpStatus.CREATED);
     }
@@ -52,9 +55,12 @@ public class TodoController {
         return new ResponseEntity<>(mapper.todosToTodoResponseDto(response), HttpStatus.OK);
     }
 
-    @PatchMapping("{todo-id}")
+    @PatchMapping("/{todo-id}")
     public ResponseEntity patchTodoList (@PathVariable("todo-id") @Positive long todoId,
-                                         @Valid @RequestBody TodoPatchDto todoPatchDto) {
+                                         @Valid @RequestBody TodoPatchDto todoPatchDto
+                                         ) {
+
+        todoPatchDto.setTodoId(todoId);
 
         Todo todo = mapper.todoPatchDtoToTodos(todoPatchDto);
         Todo response = todoService.updateTodoList(todo);
@@ -62,7 +68,7 @@ public class TodoController {
         return new ResponseEntity<>(mapper.todoToTodoResponseDto(response), HttpStatus.OK);
     }
 
-    @DeleteMapping("{todo-id}")
+    @DeleteMapping("/{todo-id}")
     public ResponseEntity deleteTodoList (@PathVariable("todo-id") @Positive long todoId) {
         todoService.deleteTodoList(todoId);
 

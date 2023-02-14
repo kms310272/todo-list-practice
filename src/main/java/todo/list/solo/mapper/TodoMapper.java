@@ -13,6 +13,8 @@ import java.util.List;
 public interface TodoMapper {
     Todo todoPostDtoToTodos(TodoPostDto todoPostDto);
     Todo todoPatchDtoToTodos(TodoPatchDto todoPatchDto);
+
     TodoResponseDto todoToTodoResponseDto(Todo todo);
+    //TodoResponseDto todoToTodoResponseDto(Todo todo , String uri);
     List<TodoResponseDto> todosToTodoResponseDto(List<Todo> todos);
 }
