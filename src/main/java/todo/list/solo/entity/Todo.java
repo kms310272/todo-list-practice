@@ -21,9 +21,11 @@ public class Todo {
     @Column(nullable = false, length = 30)
     private String title;
 
-    @Column(nullable = false)
+    @Column
     private int todoOrder;
 
-    @Column(nullable = false)
+    @Column
     private boolean completed;
+
+    private String uri;
 }

@@ -10,4 +10,5 @@ public class TodoResponseDto {
     private String title;
     private int todoOrder;
     private boolean completed;
+    private String uri;
 }

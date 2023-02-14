@@ -1,6 +1,5 @@
 package todo.list.solo.service;
 
-import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import todo.list.solo.entity.Todo;
 import todo.list.solo.exception.BusinessLogicException;
